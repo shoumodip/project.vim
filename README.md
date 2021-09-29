@@ -26,6 +26,7 @@ $ git clone https://github.com/shoumodip/project.vim
 The mapping `<plug>(ProjectEntry)` starts the entry point in the project functions. By default, `<c-p>` in normal mode is mapped to this. Any subsequent key presses after initiating the entry point defines the project function to be used.
 
 | Key          | Description                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------- |
 | <kbd>s</kbd> | Select a project from `g:project#location`. (requires [fzf](https://github.com/junegunn/fzf)) |
 | <kbd>r</kbd> | Run the reload/build command for the project                                                  |
 | <kbd>k</kbd> | Kill the terminal associated with the project                                                 |
@@ -33,7 +34,23 @@ The mapping `<plug>(ProjectEntry)` starts the entry point in the project functio
 | <kbd>p</kbd> | Goto the previous error from the project terminal                                             |
 | <kbd>f</kbd> | Run `:GFiles` (requires [fzf.vim](https://github.com/junegunn/fzf.vim))                       |
 
-## Configuration
+## Setup
+The `project#setup()` function searches for a file `project.ini` (`g:project#config_path`) in the current directory. This file defines the project configuration of the project. There are three posible variables which can be set.
+
+| Variable | Description                        | Default     |
+| -------- | ---------------------------------- | ----------- |
+| `build`  | The command to build the project   | `"make -B"` |
+| `repl`   | The command to start the repl      | `""`        |
+| `reload` | The command to reload the terminal | `""`        |
+
+An example configuration for a Haskell project.
+```ini
+build = cabal v2-build
+repl = cabal v2-repl
+reload = :r
+```
+
+## Variables
 | Variable                | Description                                       | Default         |
 | ----------------------- | ------------------------------------------------- | --------------- |
 | `g:project#location`    | The directory where all the projects are located  | `""`            |
